@@ -4,3 +4,8 @@ server:
 spring:
   application:
     name: jpa-251103
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:./db_deb;MODE=MySQL
+    username: sa
+    password:
