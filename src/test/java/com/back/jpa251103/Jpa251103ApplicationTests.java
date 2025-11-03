@@ -1,0 +1,13 @@
+package com.back.jpa251103;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class Jpa251103ApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
