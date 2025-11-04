@@ -5,6 +5,10 @@ spring:
   application:
     name: jpa-251103
 
+  output:
+    ansi:
+      enabled: always
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:./db_dev;MODE=MySQL
@@ -20,3 +24,8 @@ spring:
         format_sql: true
         highlight_sql: true
         use_sql_comments: true
+
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.orm.jdbc.extract: trace
