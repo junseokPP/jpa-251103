@@ -17,10 +17,23 @@ public class BaseInitData {
     ApplicationRunner initData(){
         return args -> {
 
-            Post post1 = new Post("제목1","내용1");
-            postRepository.save(post1);
+            if(postRepository.count()>0){
+                return;
+            }
 
-            postRepository.findById(1);
+            work1();
+            work2();
         };
+    }
+
+    private void work2() {
+        postRepository.findById(1);
+    }
+
+    private void work1() {
+        Post post1 = new Post("제목1","내용1");
+        postRepository.save(post1);
+        Post post2 = new Post("제목2","내용2");
+        postRepository.save(post2);
     }
 }
