@@ -16,12 +16,11 @@ public class BaseInitData {
     @Bean
     ApplicationRunner initData(){
         return args -> {
-            System.out.println("초기 데이터를 로딩합니다.");
 
-            Post post = new Post();
-            post.setTitle("첫번째 제목");
-            post.setContent("첫번째 게시글을 업로드 합니다.");
+            Post post1 = new Post("제목1","내용1");
+            postRepository.save(post1);
 
+            postRepository.findById(1);
         };
     }
 }

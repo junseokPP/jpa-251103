@@ -1,9 +1,7 @@
 package com.back.domain.wiseSaying.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
@@ -19,4 +17,11 @@ public class Post {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    public Post() {}
+
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
