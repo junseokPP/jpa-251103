@@ -7,21 +7,20 @@ import lombok.*;
 @Setter
 @ToString
 @Entity
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private final String title;
+    private String title;
 
     @Column(columnDefinition = "TEXT")
-    private final String content;
+    private String content;
 
-    public Post(){
-        this.title = "";
-        this.content = "";
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
-
 }
