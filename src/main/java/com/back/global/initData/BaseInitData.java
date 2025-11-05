@@ -26,11 +26,18 @@ public class BaseInitData {
 
             self.work1();
             self.work2();
-            new Thread(()->{
-                self.work3();
-            }).start();
+//            new Thread(()->{
+//                self.work3();
+//            }).start();
 
+            self.work4();
         };
+    }
+
+    @Transactional
+    public void work4() {
+        Post post = postService.getPost(1).get();
+        postService.modify(post,"제목1-변경","내용1-변경");
     }
 
     @Transactional

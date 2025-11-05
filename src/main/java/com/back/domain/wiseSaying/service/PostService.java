@@ -5,6 +5,7 @@ import com.back.domain.wiseSaying.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -30,5 +31,13 @@ public class PostService {
 
     public void delete(Post post1) {
         postRepository.delete(post1);
+    }
+
+    public void modify(Post post, String newTitle, String newContent) {
+        post.setTitle(newTitle);
+        post.setContent(newContent);
+        post.setModifyDate(LocalDateTime.now());
+
+        postRepository.save(post);
     }
 }
