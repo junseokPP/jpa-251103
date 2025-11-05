@@ -5,7 +5,6 @@ import com.back.domain.wiseSaying.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -34,22 +33,8 @@ public class PostService {
     }
 
     public void modify(Post post, String newTitle, String newContent) {
-        boolean isChanged = false;
-
-        if(!post.getTitle().equals(newTitle)) {
-            post.setTitle(newTitle);
-            isChanged = true;
-        }
-
-        if(!post.getContent().equals(newContent)) {
-            post.setContent(newContent);
-            isChanged = true;
-        }
-
-        if(isChanged) {
-            post.setModifyDate(LocalDateTime.now());
-        }
-
+        post.setTitle(newTitle);
+        post.setContent(newContent);
         postRepository.save(post);
     }
 }
