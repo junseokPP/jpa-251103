@@ -13,12 +13,10 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-
     public void write(String title, String content) {
         Post post1 = new Post(title,content);
         postRepository.save(post1);
     }
-
 
     public Long count() {
        return postRepository.count();
@@ -35,6 +33,5 @@ public class PostService {
     public void modify(Post post, String newTitle, String newContent) {
         post.setTitle(newTitle);
         post.setContent(newContent);
-        postRepository.save(post);
     }
 }
