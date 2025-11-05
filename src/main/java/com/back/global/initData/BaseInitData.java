@@ -33,6 +33,7 @@ public class BaseInitData {
         };
     }
 
+    @Transactional
     public void work3() {
         Post post1 = postService.getPost(1).get();
         Post post2 = postService.getPost(2).get();
@@ -44,7 +45,7 @@ public class BaseInitData {
         postService.delete(post2);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public void work2() {
         Optional<Post> post = postService.getPost(1);
     }
