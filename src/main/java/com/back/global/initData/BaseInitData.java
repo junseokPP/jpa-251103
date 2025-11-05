@@ -1,7 +1,7 @@
 package com.back.global.initData;
 
-import com.back.domain.wiseSaying.entity.Post;
-import com.back.domain.wiseSaying.service.PostService;
+import com.back.domain.post.post.entity.Post;
+import com.back.domain.post.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
@@ -15,18 +15,20 @@ import java.util.Optional;
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
+
     @Autowired
     @Lazy
-    private  BaseInitData self;
+    private BaseInitData self;
     private final PostService postService;
 
     @Bean
-    ApplicationRunner initData(){
+    ApplicationRunner initDataRunner() {
         return args -> {
 
             self.work1();
             self.work2();
-//            new Thread(()->{
+
+//            new Thread(() -> {
 //                self.work3();
 //            }).start();
 
@@ -34,35 +36,43 @@ public class BaseInitData {
         };
     }
 
+    // 생성
     @Transactional
-    public void work4() {
-        Post post = postService.getPost(1).get();
-        postService.modify(post,"제목1-변경","내용1-변경");
+    void work1() {
+
+        if(postService.getTotalCount() > 0) {
+            return;
+        }
+
+        // 서비스를 도입해서 비즈니스 로직을 재사용
+        postService.write("제목1", "내용1");
+        postService.write("제목2", "내용2");
+    }
+
+    // 조회
+    @Transactional(readOnly = true)
+    void work2() {
+
+        Optional<Post> opPost = postService.getPost(1);
+        // select * from post where id = 1;
     }
 
     @Transactional
-    public void work3() {
+    void work3() {
         Post post1 = postService.getPost(1).get();
         Post post2 = postService.getPost(2).get();
 
-        postService.delete(post1);
+        postService.delete(post1); // 트랜잭션
 
-        if(true) throw new RuntimeException();
+        if(true) throw new RuntimeException("테스트용 예외 발생");
 
-        postService.delete(post2);
-    }
-
-    @Transactional(readOnly = true)
-    public void work2() {
-        Optional<Post> post = postService.getPost(1);
+        postService.delete(post2); // 트랜잭션
     }
 
     @Transactional
-    public void work1(){
-        if(postService.count()>0){
-            return;
-        }
-        postService.write("제목1","내용1");
-        postService.write("제목2","내용2");
+    void work4() {
+        Post post1 = postService.getPost(1).get();
+        postService.modify(post1, "제목1-수정1", "내용1-수정1");
     }
+
 }

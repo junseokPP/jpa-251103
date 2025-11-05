@@ -1,7 +1,7 @@
-package com.back.domain.wiseSaying.service;
+package com.back.domain.post.post.service;
 
-import com.back.domain.wiseSaying.entity.Post;
-import com.back.domain.wiseSaying.repository.PostRepository;
+import com.back.domain.post.post.entity.Post;
+import com.back.domain.post.post.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class PostService {
         postRepository.save(post1);
     }
 
-    public Long count() {
+    public Long getTotalCount() {
        return postRepository.count();
     }
 
