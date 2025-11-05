@@ -3,33 +3,53 @@ package com.back.global.initData;
 import com.back.domain.wiseSaying.entity.Post;
 import com.back.domain.wiseSaying.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
-
+    @Autowired
+    @Lazy
+    private  BaseInitData self;
     private final PostService postService;
 
     @Bean
     ApplicationRunner initData(){
         return args -> {
 
-
-            work1();
-            work2();
+            self.work1();
+            self.work2();
+            new Thread(()->{
+                self.work3();
+            }).start();
 
         };
     }
 
-    private void work2() {
+    public void work3() {
+        Post post1 = postService.getPost(1).get();
+        Post post2 = postService.getPost(2).get();
+
+        postService.delete(post1);
+
+        if(true) throw new RuntimeException();
+
+        postService.delete(post2);
+    }
+
+    @Transactional
+    public void work2() {
         Optional<Post> post = postService.getPost(1);
     }
 
+    @Transactional
     public void work1(){
         if(postService.count()>0){
             return;

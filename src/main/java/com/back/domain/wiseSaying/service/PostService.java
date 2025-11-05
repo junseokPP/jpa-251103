@@ -27,4 +27,8 @@ public class PostService {
     public Optional<Post> getPost(int i) {
         return postRepository.findById(i);
     }
+
+    public void delete(Post post1) {
+        postRepository.delete(post1);
+    }
 }
